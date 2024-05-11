@@ -15,6 +15,7 @@ function MyApp({ Component, pageProps }) {
       <div className="container">
         <Component {...pageProps} />
       </div>
+      {/* FOOTER STARTS */}
       {isHomePage() && (
         <footer id="sticky-footer" className="py-4 bg-black text-white-50 py-3">
           <div className="container text-center">
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }) {
           </div>
         </footer>
       )}
+      {/* FOOTER ENDS */}
     </div>
   );
 }
