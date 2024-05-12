@@ -6,6 +6,7 @@ exports.connect = () => {
     config.DB_URI,
     {
       useNewUrlParser: true,
+      useFindAndModify: false,
       useUnifiedTopology: true,
     },
     () => {

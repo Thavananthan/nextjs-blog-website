@@ -10,7 +10,7 @@ const portfolioFields = `
 `;
 
 exports.portfolioTypes = `
-  type Porfolio {
+  type Portfolio {
     _id: ID,
     ${portfolioFields}
   }
