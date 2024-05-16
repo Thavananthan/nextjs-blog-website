@@ -28,3 +28,22 @@ exports.portfolioMutations = {
     return deletedPortfolio._id;
   },
 };
+
+exports.userQueries = {
+  user: (root, args, ctx) => {
+    return ctx.models.User.getAuthUser(ctx);
+  },
+};
+
+exports.userMutations = {
+  signUp: async (root, { input }, ctx) => {
+    const registeredUser = await ctx.models.User.signUp(input);
+    return registeredUser._id;
+  },
+  signIn: async (root, { input }, ctx) => {
+    return await ctx.models.User.signIn(input, ctx);
+  },
+  signOut: async (root, args, ctx) => {
+    return await ctx.models.User.signOut(ctx);
+  },
+};

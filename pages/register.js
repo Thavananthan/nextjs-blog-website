@@ -1,15 +1,21 @@
 import RegisterForm from "@/components/forms/RegisterForm";
 import { Mutation } from "react-apollo";
 import { SIGN_UP } from "@/apollo/queries";
+import { useSignUp } from "@/apollo/actions";
+
 import withApollo from "@/hoc/withApollo";
 import Redirect from "@/components/shared/Redirect";
 
 const Register = () => {
   const errorMessage = (error) => {
-    return (
-      (error.graphQLErrors && error.graphQLErrors[0].message) ||
-      "Ooooops something went wrong..."
-    );
+    return error;
+  };
+
+  const [signup, { data, loading, error }] = useSignUp();
+
+  const signUp = (data) => {
+    alert(JSON.stringify(data));
+    signup({ variables: data });
   };
 
   return (
@@ -18,23 +24,16 @@ const Register = () => {
         <div className="row">
           <div className="col-md-5 mx-auto">
             <h1 className="page-title">Register</h1>
-            <Mutation mutation={SIGN_UP}>
-              {(signUpUser, { data, error }) => (
-                <>
-                  <RegisterForm
-                    onSubmit={(registerData) => {
-                      signUpUser({ variables: registerData });
-                    }}
-                  />
-                  {data && data.signUp && <Redirect to="/login" />}
-                  {error && (
-                    <div className="alert alert-danger">
-                      {errorMessage(error)}
-                    </div>
-                  )}
-                </>
-              )}
-            </Mutation>
+
+            <RegisterForm
+              onSubmit={(registerData) => {
+                signUp(registerData);
+              }}
+            />
+            {data && data.signUp && <Redirect to="/login" />}
+            {error && (
+              <div className="alert alert-danger">{errorMessage(error)}</div>
+            )}
           </div>
         </div>
       </div>
